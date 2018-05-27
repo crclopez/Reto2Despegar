@@ -1,12 +1,9 @@
 package pages;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import utilities.utilidades;
 
 public class DespegarPpalPage {
 	
@@ -17,6 +14,7 @@ WebDriver driver;
 	}
 	
 	public void cerrarMensajeEmergente() {
+		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("/html/body/div[16]/div/div[1]/span")).click();
 	}
 	
@@ -29,29 +27,23 @@ WebDriver driver;
 	}
 	
 	public void campoOrigen(String origen) {
-//		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div/div/div/div[3]/div/div[1]/div/div[1]/div/div/div/input")).clear();
-//		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div/div/div/div[3]/div/div[1]/div/div[1]/div/div/div/input")).sendKeys(origen);
-//		List <WebElement>  listItemsO = driver.findElements(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div/div/div/div[3]/div/div[1]/div/div[1]/div/div/div/div/div[2]"));
-//		listItemsO.get(0).click();
-		
-		esperarSegundos(driver, 2);
+		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/div/div/div/input")).clear();
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/div/div/div/input")).sendKeys(origen);
+		utilidades.Wait(driver, 2);
+		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[1]/div/div[1]/div/div/div/input")).sendKeys(Keys.ENTER);
 	}
 	
 	public void campoDestino(String destino) {
-//		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div/div/div/div[3]/div/div[1]/div/div[2]/div/div/div/div/input")).clear();
-//		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div/div/div/div[3]/div/div[1]/div/div[2]/div/div/div/div/input")).sendKeys(destino);
-//		List <WebElement> listItemsD = driver.findElements(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div/div/div/div[3]/div/div[1]/div/div[1]/div/div/div/div/div[2]"));
-//		listItemsD.get(0).click();
-		esperarSegundos(driver, 2);
+		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[1]/div/div[2]/div/div/div/div/input")).clear();
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[1]/div/div[2]/div/div/div/div/input")).sendKeys(destino);
+		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[1]/div/div[2]/div/div/div/div/input")).sendKeys(Keys.ENTER);
 	}
 	
 	public void camposFechaInicio () {
-		esperarSegundos(driver, 2);
+		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]/input")).click();
 	}
 	
@@ -95,17 +87,6 @@ WebDriver driver;
 	public void botonBuscar () {
 		driver.findElement(By.linkText("Buscar")).click();
 	}
-	
-	public void esperarSegundos(WebDriver driver, int segundos){
-	      synchronized(driver){
-	         try {
-	            driver.wait(segundos * 1000);
-	         } catch (InterruptedException e) {
-	            // TODO Auto-generated catch block
-	            e.printStackTrace();
-	         }
-	      }
-	   } 
 	
 	//Constructor
 	public DespegarPpalPage(WebDriver driver) {

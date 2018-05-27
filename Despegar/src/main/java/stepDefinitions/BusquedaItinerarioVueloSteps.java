@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -20,9 +21,11 @@ import org.openqa.selenium.WebDriver;
 import configurations.ShareDriver;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.DespegarPpalPage;
 import pages.ResultadoBusquedaPage;
+import utilities.utilidades;
 
 public class BusquedaItinerarioVueloSteps {
 
@@ -68,13 +71,13 @@ public class BusquedaItinerarioVueloSteps {
 	@And ("^la fecha de inicio \"(.*)$")
 	public void seleccionarFechaInicio (String fechaInicio) {
 		despegarPpalPage.camposFechaInicio();
-		Integer i = calcularMesFecha(fechaInicio);
+		Integer i = utilidades.calcularMesFecha(fechaInicio);
 		
 		for (Integer cont = 0; cont<i; cont++) {
 			despegarPpalPage.flechaCambioMesFuturo();
 		}
 		
-		despegarPpalPage.seleccionarDiaFechaInicio(calcularDiaFecha(fechaInicio));
+		despegarPpalPage.seleccionarDiaFechaInicio(utilidades.calcularDiaFecha(fechaInicio));
 		System.out.println("Usuario ingreso la fecha de inicio "+fechaInicio);
 	}
 	
@@ -82,7 +85,7 @@ public class BusquedaItinerarioVueloSteps {
 	public void seleccionarFechaFin (String fechaFin) {
 		despegarPpalPage.campoFechaFin();
 		despegarPpalPage.campoFechaFin();		
-		despegarPpalPage.seleccionarDiaFechaFin(calcularDiaFecha(fechaFin));
+		despegarPpalPage.seleccionarDiaFechaFin(utilidades.calcularDiaFecha(fechaFin));
 		System.out.println("Usuario ingreso la fecha de fin "+fechaFin);
 	}
 	
@@ -105,58 +108,14 @@ public class BusquedaItinerarioVueloSteps {
 	}
 	
 	@And ("almacena los registros en un archivo de excel")
-	public void almacenarRegistrosEnExcel() {
-		String precio = resultadoBusquedaPage.obtenerPrecioRegistro();
-		String horaVuelo = resultadoBusquedaPage.obtenerHoraVuelo();
-		escribirExcel(horaVuelo, precio);
-		System.out.println("El archivo con el resultado de las busquedas esta en la ruta D: y su nombre es tiquetesDespegar.xlsx"+precio+" "+horaVuelo);
+	public void almacenarRegistrosEnExcel() throws Exception {
+		resultadoBusquedaPage.obtenerItinerarioVuelo(7,2);	
+		System.out.println("El archivo con el resultado de las busquedas esta en la ruta D: y su nombre es tiquetesDespegar.xlsx");
 	}
 	
-	public int calcularMesFecha(String fecha) {
-		String [] fechaSep = fecha.split("/");
-		Integer mes = Integer.parseInt(fechaSep[1]);
+	@Then ("se muestre el registro de menor valor restado en verde")
+	public void pintarValorMenorEnVerde() {
 		
-		Calendar fechaAct = new GregorianCalendar();
-		Integer mesAct = fechaAct.get(Calendar.MONTH);
-			
-		Integer mesRest = mes - mesAct;
-		
-		return mesRest;
 	}
-	
-	public int calcularDiaFecha(String fecha) {
-		String [] fechaSep = fecha.split("/");
-		Integer dia = Integer.parseInt(fechaSep[0]);
-		
-		return dia;
-	}
-	
-	public void escribirExcel (String horaVuelo, String precio){
-		File file = new File("D:\\tiquetesDespegar.xlsx");
-		
-		try {
-			FileInputStream xFileI = new FileInputStream(file);
-			Workbook libroExcel = WorkbookFactory.create(xFileI);
-			Sheet hoja = libroExcel.getSheetAt(0);
-			Cell celda = hoja.getRow(0).getCell(0);
-			System.out.println("por aqui paso");
-			celda.setCellValue(horaVuelo);
-			xFileI.close();
-			
-			
-//			XSSFWorkbook libroExcel = new XSSFWorkbook(xFileI);
-//			XSSFSheet hoja = libroExcel.getSheetAt(0);
 
-			FileOutputStream xFileO = new FileOutputStream(file);
-			libroExcel.write(xFileO);
-			libroExcel.close();
-			xFileO.close();
-			
-		} catch (FileNotFoundException e) {
-	        e.printStackTrace();
-		} catch (Exception e) {
-			System.out.println("ERROR FILE HANDLING " + e.toString());
-			e.printStackTrace();
-		}
-	}
 }
