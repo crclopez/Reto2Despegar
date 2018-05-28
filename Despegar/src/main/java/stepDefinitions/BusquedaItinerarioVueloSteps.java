@@ -1,22 +1,10 @@
 package stepDefinitions;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import static org.junit.Assert.assertEquals;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import configurations.ShareDriver;
 import cucumber.api.java.en.And;
@@ -58,7 +46,6 @@ public class BusquedaItinerarioVueloSteps {
 	@And ("^selecciona la ciudad de origen \"(.*)$")
 	public void digitaCiudadOrigen(String origen) {
 		despegarPpalPage.campoOrigen(origen);
-//		despegarPpalPage.tipoPaquete();
 		System.out.println("Usuario ingreso la ciudad de origen");
 	}
 	
@@ -103,19 +90,28 @@ public class BusquedaItinerarioVueloSteps {
 	
 	@And ("ordena de menor a mayor los registros arrojados por la busqueda")
 	public void presionarOpcionTiquetesDiferentesCompanias() {
+		new Select(driver.findElement(By.id("eva-select"))).selectByValue("total_price_ascending");
 		resultadoBusquedaPage.opcionTiquetesDiferentesCompañias();
 		System.out.println("Registros ya ordenados por precio de menor a mayor");
 	}
 	
-	@And ("almacena los registros en un archivo de excel")
+	@Then ("almacena los 7 registros con precio mas bajo en un archivo de excel y se colorea de verde el precio mas bajo")
 	public void almacenarRegistrosEnExcel() throws Exception {
 		resultadoBusquedaPage.obtenerItinerarioVuelo(7,2);	
 		System.out.println("El archivo con el resultado de las busquedas esta en la ruta D: y su nombre es tiquetesDespegar.xlsx");
 	}
 	
-	@Then ("se muestre el registro de menor valor restado en verde")
-	public void pintarValorMenorEnVerde() {
-		
+	@Then ("se visualiza mensaje indicando que el destino debe ser diferente al origen")
+	public void mensajeDestinoDiferenteOrigen() {
+		String mensajeError = despegarPpalPage.MensajeDeErrorDestino();
+		assertEquals("El destino debe ser diferente del origen", mensajeError);
+		System.out.println("El sistema muestra un mensaje de error indicando que la ciudad de destino debe ser diferente a la ciudad de origen");
+	}
+	
+	@Then ("se visualiza mensaje indicando que se debe ingresar una fecha de regreso")
+	public void mensajeFechaRegreso() {
+		String mensajeError = despegarPpalPage.MensajeDeErrorFechaRegreso();
+		System.out.println("El sistema muestra un mensaje de error indicando que se debe seleccionar una fecha de regreso");
 	}
 
 }

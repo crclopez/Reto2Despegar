@@ -1,12 +1,8 @@
 package pages;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import utilities.utilidades;
 import utilities.utilidades.Excel;
 
 public class ResultadoBusquedaPage {
@@ -32,7 +28,6 @@ public class ResultadoBusquedaPage {
 				
 				//Precio
 				itinerarioVuelo [cont][cont2] = driver.findElement(By.xpath("//*[@id='clusters']/span["+ubicacion+"]/span/cluster/div/div/span/fare/span/span/main-fare/span/span[2]/flights-price/span/flights-price-element/span/span/em/span[2]")).getText();
-//				itinerarioVuelo [cont][cont2] = driver.findElement(By.xpath("//*[@id="clusters"]/span["+ubicacion+"]/span/cluster/div/div/span/fare/span/span/main-fare/span/span[2]/flights-price/span/flights-price-element/span/span/em/span[2])).getText();
 			}
 			ubicacion++;
 		}
@@ -41,7 +36,6 @@ public class ResultadoBusquedaPage {
 					
 	}
 	
-
 	//Constructor
 	public ResultadoBusquedaPage(WebDriver driver) {
 		this.driver = driver;

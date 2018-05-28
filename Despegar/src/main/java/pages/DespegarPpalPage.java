@@ -88,6 +88,14 @@ WebDriver driver;
 		driver.findElement(By.linkText("Buscar")).click();
 	}
 	
+	public String MensajeDeErrorDestino() {
+		return driver.findElement(By.cssSelector("span.validation-msg.sbox-bind-show-error-tooltip-segment-1-equal-destination")).getText();
+	}
+	
+	public String MensajeDeErrorFechaRegreso() {
+		return driver.findElement(By.cssSelector("span.validation-msg")).getText();
+	}
+	
 	//Constructor
 	public DespegarPpalPage(WebDriver driver) {
 		this.driver = driver;

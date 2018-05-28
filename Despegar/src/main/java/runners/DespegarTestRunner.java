@@ -5,7 +5,7 @@ import cucumber.api.junit.Cucumber;
 import cucumber.api.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="projectFeatures", glue="stepDefinitions")
+@CucumberOptions(tags= {"@Alterno2"}, features="projectFeatures", glue="stepDefinitions")
 public class DespegarTestRunner {
 
 }
