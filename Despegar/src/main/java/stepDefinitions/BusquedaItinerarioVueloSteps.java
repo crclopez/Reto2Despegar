@@ -58,13 +58,14 @@ public class BusquedaItinerarioVueloSteps {
 	@And ("^la fecha de inicio \"(.*)$")
 	public void seleccionarFechaInicio (String fechaInicio) {
 		despegarPpalPage.camposFechaInicio();
-		Integer i = utilidades.calcularMesFecha(fechaInicio);
+		int RestaMesFechaInicioFechaActual = utilidades.calcularRestaMesFechaInicioMesFechaActual(fechaInicio);
 		
-		for (Integer cont = 0; cont<i; cont++) {
+		for (int cont = 1; cont<RestaMesFechaInicioFechaActual; cont++) {
 			despegarPpalPage.flechaCambioMesFuturo();
 		}
 		
-		despegarPpalPage.seleccionarDiaFechaInicio(utilidades.calcularDiaFecha(fechaInicio));
+		String mesConteo = Integer.toString(RestaMesFechaInicioFechaActual);
+		despegarPpalPage.seleccionarDiaFechaInicio(mesConteo ,utilidades.calcularDiaFecha(fechaInicio));
 		System.out.println("Usuario ingreso la fecha de inicio "+fechaInicio);
 	}
 	
@@ -72,14 +73,19 @@ public class BusquedaItinerarioVueloSteps {
 	public void seleccionarFechaFin (String fechaFin) {
 		despegarPpalPage.campoFechaFin();
 		despegarPpalPage.campoFechaFin();		
-		despegarPpalPage.seleccionarDiaFechaFin(utilidades.calcularDiaFecha(fechaFin));
+		int RestaMesFechaInicioFechaActual = utilidades.calcularRestaMesFechaInicioMesFechaActual(fechaFin);
+		String mesConteo = Integer.toString(RestaMesFechaInicioFechaActual);
+		despegarPpalPage.seleccionarDiaFechaFin(mesConteo, utilidades.calcularDiaFecha(fechaFin));
 		System.out.println("Usuario ingreso la fecha de fin "+fechaFin);
 	}
 	
 	@And ("^cantidad de viajeros \"(.*)$")
-	public void seleccionarCantidadViajeros (String cantidadViajeros) {
+	public void seleccionarCantidadViajeros (int cantidadViajeros) {
 		despegarPpalPage.campoSeleccionarNumeroViajeros();
-		despegarPpalPage.botonAumentarCantViajeros();
+		for (int cont=1; cont < cantidadViajeros; cont++) {
+			despegarPpalPage.botonAumentarCantViajeros();
+		}
+		despegarPpalPage.botonAplicarSelCantViajeros();
 	}
 	
 	@And ("presiona el boton Buscar")

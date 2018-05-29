@@ -1,8 +1,11 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import utilities.utilidades;
 
 public class DespegarPpalPage {
@@ -55,16 +58,16 @@ WebDriver driver;
 		driver.findElement(By.xpath("/html/body/div[5]/div/div[2]/div[1]/i")).click();
 	}
 	
-	public void seleccionarDiaFechaInicio(int diaInicio) {
-		driver.findElement(By.xpath("/html/body/div[4]/div/div[4]/div[6]/div[4]/span["+ diaInicio +"]")).click();
+	public void seleccionarDiaFechaInicio(String mesConteo, int diaInicio) {
+		driver.findElement(By.xpath("/html/body/div[4]/div/div[4]/div[" + mesConteo + "]/div[4]/span["+ diaInicio +"]")).click();
 	}
 	
 	public void campoFechaFin() {
 		driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div[4]")).click();
 	}
 	
-	public void seleccionarDiaFechaFin(int diaFin) {
-		driver.findElement(By.xpath("/html/body/div[4]/div/div[4]/div[6]/div[4]/span["+ diaFin + "]")).click();
+	public void seleccionarDiaFechaFin(String mesConteo, int diaFin) {
+		driver.findElement(By.xpath("/html/body/div[4]/div/div[4]/div[" + mesConteo + "]/div[4]/span["+ diaFin + "]")).click();
 	}
 	
 	public void campoSeleccionarNumeroViajeros () {
@@ -72,16 +75,22 @@ WebDriver driver;
 	}
 	
 	public void botonAumentarCantViajeros() {
-//		driver.findElement(By.cssSelector("/html/body/div[3]/div/div[1]/div[2]/div/div[1]/div/div[1]/div[2]/div/a[2]")).click();
-		driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/div[2]/div/div[1]/div/div[1]/div[2]/div/a[2]")).click();
+		utilidades.Wait(driver, 1);
+		//Click sobre el boton de aumento de pasajeros
+		WebElement plus= driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/div[2]/div/div[1]/div/div[1]/div[2]/div/a[2]")); 
+		JavascriptExecutor js= (JavascriptExecutor ) driver;
+		
+		js.executeScript("arguments[0].click();", plus);	
 	}
 	
 	public void botonDisminuirCantViajeros() {
+		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("/html/body/div[3]/div/div[1]/div[2]/div/div[1]/div/div[1]/div[2]/div/a[1]")).click();
 	}
 	
 	public void botonAplicarSelCantViajeros() {
-		driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/a[1]")).click();
+		utilidades.Wait(driver, 1);
+		driver.findElement(By.xpath("/html/body/div[3]/div/div[2]/a")).click();
 	}
 	
 	public void botonBuscar () {

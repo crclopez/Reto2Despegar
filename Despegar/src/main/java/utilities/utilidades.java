@@ -23,16 +23,16 @@ public class utilidades {
 	
 	static ResultadoBusquedaPage resultadoBusquedaPage;
 	
-	public static int calcularMesFecha(String fecha) {
-		String [] fechaSep = fecha.split("/");
-		Integer mes = Integer.parseInt(fechaSep[1]);
+	public static int calcularRestaMesFechaInicioMesFechaActual(String fecha) {
+		String [] fechaSeparada = fecha.split("/");
+		Integer mesFechaSeleccionada = Integer.parseInt(fechaSeparada[1]);
 		
-		Calendar fechaAct = new GregorianCalendar();
-		Integer mesAct = fechaAct.get(Calendar.MONTH);
+		Calendar fechaActual = new GregorianCalendar();
+		Integer mesActual = fechaActual.get(Calendar.MONTH);
 			
-		Integer mesRest = mes - mesAct;
+		Integer restaMesSelecMesActual = mesFechaSeleccionada - mesActual;
 		
-		return mesRest;
+		return restaMesSelecMesActual;
 	}
 	
 	public static int calcularDiaFecha(String fecha) {

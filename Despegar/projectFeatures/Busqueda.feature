@@ -11,7 +11,7 @@ Feature: Realizar busqueda de vuelo exitosa
     And escoge la ciudad de destino "Aeropuerto Rafael Nunez, Cartagena de Indias 
     And la fecha de inicio "01/09/2018
     And de fin "29/09/2018
-    #And cantidad de viajeros "2
+    And cantidad de viajeros "2
     And presiona el boton Buscar
     And ordena de menor a mayor los registros arrojados por la busqueda
     Then almacena los 7 registros con precio mas bajo en un archivo de excel y se colorea de verde el precio mas bajo
