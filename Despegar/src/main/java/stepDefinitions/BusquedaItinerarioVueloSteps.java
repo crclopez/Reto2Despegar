@@ -3,6 +3,7 @@ package stepDefinitions;
 import static org.junit.Assert.assertEquals;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -33,9 +34,11 @@ public class BusquedaItinerarioVueloSteps {
 	public void usuarioEstaEnPaginaPpal () {
 		driver.get("https://www.despegar.com.co/");
 		driver.manage().window().maximize();
-		despegarPpalPage.cerrarMensajeEmergente();
+		if (despegarPpalPage.ventanaEmergente()) {
+			despegarPpalPage.cerrarMensajeEmergente();
+		}
 		
-	System.out.println("Usuario ingreso a la pagina principal");
+		System.out.println("Usuario ingreso a la pagina principal");
 	}
 	
 	@When ("se elige la opcion vuelos")
@@ -58,6 +61,7 @@ public class BusquedaItinerarioVueloSteps {
 	@And ("^la fecha de inicio \"(.*)$")
 	public void seleccionarFechaInicio (String fechaInicio) {
 		despegarPpalPage.camposFechaInicio();
+		
 		int RestaMesFechaInicioFechaActual = utilidades.calcularRestaMesFechaInicioMesFechaActual(fechaInicio);
 		
 		for (int cont = 1; cont<RestaMesFechaInicioFechaActual; cont++) {
@@ -72,7 +76,7 @@ public class BusquedaItinerarioVueloSteps {
 	@And ("^de fin \"(.*)$")
 	public void seleccionarFechaFin (String fechaFin) {
 		despegarPpalPage.campoFechaFin();
-		despegarPpalPage.campoFechaFin();		
+		despegarPpalPage.campoFechaFin();
 		int RestaMesFechaInicioFechaActual = utilidades.calcularRestaMesFechaInicioMesFechaActual(fechaFin);
 		String mesConteo = Integer.toString(RestaMesFechaInicioFechaActual);
 		despegarPpalPage.seleccionarDiaFechaFin(mesConteo, utilidades.calcularDiaFecha(fechaFin));
@@ -117,6 +121,7 @@ public class BusquedaItinerarioVueloSteps {
 	@Then ("se visualiza mensaje indicando que se debe ingresar una fecha de regreso")
 	public void mensajeFechaRegreso() {
 		String mensajeError = despegarPpalPage.MensajeDeErrorFechaRegreso();
+		assertEquals("Ingrese una fecha de regreso", mensajeError);
 		System.out.println("El sistema muestra un mensaje de error indicando que se debe seleccionar una fecha de regreso");
 	}
 

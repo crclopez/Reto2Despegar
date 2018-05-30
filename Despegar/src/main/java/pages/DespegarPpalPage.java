@@ -16,6 +16,10 @@ WebDriver driver;
 		return driver.findElement(By.xpath("/html/body/div[16]/div/div[1]/div/h3")).getText();
 	}
 	
+	public boolean ventanaEmergente() {
+		return driver.findElement(By.xpath("/html/body/div[16]/div/div[1]/div")).isDisplayed();
+	}
+	
 	public void cerrarMensajeEmergente() {
 		utilidades.Wait(driver, 2);
 		driver.findElement(By.xpath("/html/body/div[16]/div/div[1]/span")).click();
