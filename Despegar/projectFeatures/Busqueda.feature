@@ -7,8 +7,8 @@ Feature: Realizar busqueda de vuelo exitosa
    Scenario: Busqueda de vuelo exitoso
     Given el usuario esta en la pagina principal de despegar
     When se elige la opcion vuelos
-    And selecciona la ciudad de origen "Medellin, Antioquia, Colombia
-    And escoge la ciudad de destino "Aeropuerto Rafael Nunez, Cartagena de Indias 
+    And selecciona la ciudad de origen "Medellin
+    And escoge la ciudad de destino "Cartagena
     And la fecha de inicio "01/09/2018
     And de fin "29/09/2018
     And cantidad de viajeros "2
@@ -24,7 +24,7 @@ Feature: Realizar busqueda de vuelo exitosa
     And escoge la ciudad de destino "Medellin, Antioquia, Colombia 
     And la fecha de inicio "01/09/2018
     And de fin "29/09/2018
-    #And cantidad de viajeros "2
+    And cantidad de viajeros "2
     And presiona el boton Buscar
     Then se visualiza mensaje indicando que el destino debe ser diferente al origen
     
@@ -35,7 +35,7 @@ Feature: Realizar busqueda de vuelo exitosa
     And selecciona la ciudad de origen "Medellin, Antioquia, Colombia
     And escoge la ciudad de destino "Aeropuerto Rafael Nunez, Cartagena de Indias 
     And la fecha de inicio "01/09/2018
-    #And cantidad de viajeros "2
+    And cantidad de viajeros "2
     And presiona el boton Buscar
     Then se visualiza mensaje indicando que se debe ingresar una fecha de regreso
     
@@ -44,10 +44,5 @@ Feature: Realizar busqueda de vuelo exitosa
     
     
     
-    
-    
-    
-   # Examples:
-   # | identificacion | razonSocial | ciudad	| tipoCliente	| nivelRiesgo	| identificacion |
-   # | 11112322 |	Prueba1	|	Medellin |	Particular	| 1	|	11112322 |
+  
 

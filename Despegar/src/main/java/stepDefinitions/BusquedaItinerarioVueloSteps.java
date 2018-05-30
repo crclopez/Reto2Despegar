@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import configurations.ShareDriver;
+import cucumber.api.java.After;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -28,6 +29,11 @@ public class BusquedaItinerarioVueloSteps {
 		this.driver = shareDriver;
 		this.despegarPpalPage = despegarPpalPage;
 		this.resultadoBusquedaPage = resultadoBusquedaPage;
+	}
+
+	@After
+	public void tearDown() {
+		driver.quit();
 	}
 	
 	@Given ("el usuario esta en la pagina principal de despegar")
@@ -77,6 +83,7 @@ public class BusquedaItinerarioVueloSteps {
 	public void seleccionarFechaFin (String fechaFin) {
 		despegarPpalPage.campoFechaFin();
 		despegarPpalPage.campoFechaFin();
+		
 		int RestaMesFechaInicioFechaActual = utilidades.calcularRestaMesFechaInicioMesFechaActual(fechaFin);
 		String mesConteo = Integer.toString(RestaMesFechaInicioFechaActual);
 		despegarPpalPage.seleccionarDiaFechaFin(mesConteo, utilidades.calcularDiaFecha(fechaFin));
@@ -100,7 +107,7 @@ public class BusquedaItinerarioVueloSteps {
 	
 	@And ("ordena de menor a mayor los registros arrojados por la busqueda")
 	public void presionarOpcionTiquetesDiferentesCompanias() {
-		new Select(driver.findElement(By.id("eva-select"))).selectByValue("total_price_ascending");
+		resultadoBusquedaPage.ordenarPrecioMenorAMayor();
 		resultadoBusquedaPage.opcionTiquetesDiferentesCompañias();
 		System.out.println("Registros ya ordenados por precio de menor a mayor");
 	}
@@ -121,7 +128,7 @@ public class BusquedaItinerarioVueloSteps {
 	@Then ("se visualiza mensaje indicando que se debe ingresar una fecha de regreso")
 	public void mensajeFechaRegreso() {
 		String mensajeError = despegarPpalPage.MensajeDeErrorFechaRegreso();
-		assertEquals("Ingrese una fecha de regreso", mensajeError);
+		assertEquals("Ingresa una fecha de regreso", mensajeError);
 		System.out.println("El sistema muestra un mensaje de error indicando que se debe seleccionar una fecha de regreso");
 	}
 

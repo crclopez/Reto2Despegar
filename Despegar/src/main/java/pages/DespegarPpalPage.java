@@ -106,7 +106,7 @@ WebDriver driver;
 	}
 	
 	public String MensajeDeErrorFechaRegreso() {
-		return driver.findElement(By.cssSelector("span.validation-msg")).getText();
+		return driver.findElement(By.xpath("//*[@id=\"searchbox-sbox-all-boxes\"]/div[2]/div/div/div[3]/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div[4]/span[2]")).getText();
 	}
 	
 	//Constructor

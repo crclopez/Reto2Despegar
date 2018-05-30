@@ -21,7 +21,7 @@ public static final WebDriver driver;
 	
 	@After
 	public void tearDown(Scenario scenario) {
-		driver.quit();
+		driver.close();
 	}
 	
 	//Constructor

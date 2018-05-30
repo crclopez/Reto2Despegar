@@ -2,7 +2,9 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
+import utilities.utilidades;
 import utilities.utilidades.Excel;
 
 public class ResultadoBusquedaPage {
@@ -12,6 +14,11 @@ public class ResultadoBusquedaPage {
 	
 	public void opcionTiquetesDiferentesCompañias() {
 		driver.findElement(By.xpath("//*[@id=\"results-visualization-bar-position\"]/results-visualization-bar/div/div/change-view-mode/div/div/em[2]")).click();
+	}
+	
+	public void ordenarPrecioMenorAMayor() {
+		utilidades.Wait(driver, 1);
+		new Select(driver.findElement(By.id("eva-select"))).selectByValue("total_price_ascending");
 	}
 	
 	public void obtenerItinerarioVuelo(int cantVuelos, int detalle) {
